@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
-public @interface ResponseApi {
+public @interface ApiResponse {
 
     HttpStatus value() default HttpStatus.OK;
 }

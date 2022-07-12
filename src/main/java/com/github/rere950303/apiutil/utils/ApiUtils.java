@@ -1,7 +1,7 @@
 package com.github.rere950303.apiutil.utils;
 
 import com.github.rere950303.apiutil.dto.CommonResult;
-import com.github.rere950303.apiutil.exception.ResponseApiException;
+import com.github.rere950303.apiutil.exception.ApiResponseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -27,7 +27,7 @@ public final class ApiUtils {
         return new ResponseEntity<>(successResult, status);
     }
 
-    public static ResponseEntity<CommonResult> getFailResult(ResponseApiException e) {
+    public static ResponseEntity<CommonResult> getFailResult(ApiResponseException e) {
         CommonResult failResult = CommonResult
                 .builder()
                 .result(FAIL)

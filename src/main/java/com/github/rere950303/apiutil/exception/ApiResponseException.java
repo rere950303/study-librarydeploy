@@ -4,30 +4,26 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class ResponseApiException extends RuntimeException {
+public class ApiResponseException extends RuntimeException {
 
     private HttpStatus status = HttpStatus.BAD_REQUEST;
 
-    public ResponseApiException(String message, HttpStatus status) {
+    public ApiResponseException(String message, HttpStatus status) {
         super(message);
         this.status = status;
     }
 
-    public ResponseApiException(HttpStatus status) {
+    public ApiResponseException(HttpStatus status) {
         super();
         this.status = status;
     }
 
-    public ResponseApiException(String message) {
-        super(message);
-    }
-
-    public ResponseApiException(String message, Throwable cause, HttpStatus status) {
+    public ApiResponseException(String message, Throwable cause, HttpStatus status) {
         super(message, cause);
         this.status = status;
     }
 
-    public ResponseApiException(Throwable cause, HttpStatus status) {
+    public ApiResponseException(Throwable cause, HttpStatus status) {
         super(cause);
         this.status = status;
     }
