@@ -3,10 +3,12 @@ package com.github.rere950303.apiutil.aspect;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.rere950303.apiutil.advice.ValidationAdvice;
 import com.github.rere950303.apiutil.annotation.ApiResponse;
+import com.github.rere950303.apiutil.exception.ApiResponseException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.lang.NonNull;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.Errors;
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 @SpringBootTest
 @Import({ApiResponseAspect.class, ApiResponseAspectTest.TestController.class, ValidationAdvice.class})
+@Slf4j
 class ApiResponseAspectTest {
 
     MockMvc mockMvc;
@@ -61,10 +66,10 @@ class ApiResponseAspectTest {
 
     @Test
     public void methodName() throws Exception {
-        DTO dto = DTO.builder().temp("1").password("123").passwordConfirm("321").build();
+        DTO dto = DTO.builder().temp("1").password("123").passwordConfirm("123").build();
         String json = objectMapper.writeValueAsString(dto);
 
-        mockMvc.perform(get("/test2")
+        mockMvc.perform(post("/test3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json));
     }
@@ -93,7 +98,7 @@ class ApiResponseAspectTest {
         @PostMapping("/test3")
         @ApiResponse(HttpStatus.BAD_REQUEST)
         public Object test3(@RequestBody @Valid DTO dto) {
-            return "test3";
+            throw new CustomException(null);
         }
 
         @InitBinder
@@ -129,6 +134,25 @@ class ApiResponseAspectTest {
             }
         }
     }
+
+    static class CustomException extends ApiResponseException {
+        public CustomException(String message, HttpStatus status) {
+            super(message, status);
+        }
+
+        public CustomException(HttpStatus status) {
+            super(status);
+        }
+
+        public CustomException(String message, Throwable cause, HttpStatus status) {
+            super(message, cause, status);
+        }
+
+        public CustomException(Throwable cause, HttpStatus status) {
+            super(cause, status);
+        }
+    }
+
 
 
 
