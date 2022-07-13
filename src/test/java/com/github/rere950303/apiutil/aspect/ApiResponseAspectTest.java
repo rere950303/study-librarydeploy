@@ -69,7 +69,7 @@ class ApiResponseAspectTest {
         DTO dto = DTO.builder().temp("1").password("123").passwordConfirm("123").build();
         String json = objectMapper.writeValueAsString(dto);
 
-        mockMvc.perform(post("/test3")
+        mockMvc.perform(get("/test2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json));
     }
