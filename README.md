@@ -1,13 +1,13 @@
 # study-librarydeploy
 ## Overview
-성공 / 실패 / 검증과 관련된 공통된 api response를 지원하는 Spring Boot 라이브러리
+A Spring Boot library that supports common responses related to success / failure / validation
 
 ## Version
-- 1.0.0: 첫 배포
+- 1.0.0: first deployment
 - 1.0.1(latest): gradle dependency error solved
 
-## api response spec
-### 성공
+## Response spec
+### success
 ```json
 {
   "result": "success",
@@ -29,7 +29,7 @@
 }
 ```
 
-### 실패
+### fail
 ```json
 {
   "result": "fail",
@@ -40,7 +40,7 @@
 }
 ```
 
-### 검증
+### validation
 ```json
 {
   "result": "fail",
@@ -55,7 +55,7 @@
 }
 ```
 
-## 의존성 추가
+## Add dependencies
 ### gradle
 ```groovy
 allprojects {
@@ -86,21 +86,21 @@ dependencies {
 </dependency>
 ```
 
-## 사용법
-- `@SpringBootApplication` 위에 `@EnableApiResponse` 어노테이션 추가
-- 클래스 또는 메서드에 `@ApiResponse(HttpStatus)` 어노테이션 추가 (디폴트: `HttpStatus.Ok`)
-- 클래스와 메서드 모두 적용된 경우 메서드가 우선권을 가짐
+## Getting started
+- Add `@EnableApiResponse` annotation on `@SpringBootApplication`
+- Add `@ApiResponse(HttpStatus status)` annotation to class or method (default: `HttpStatus.Ok`)
+- Method takes precedence when both classes and methods are applied
 
-### 성공 응답
-핸들러에서 반환하는 객체 타입을 `Object`로 해주어야 한다.
+### success response
+The object type returned by the handler should be `Object`
 
-### 실패 응답
-예외를 던질 경우 `ApiResponseException`을 상속한 예외를 던져야 한다. 예외 객체 생성시 상황에 맞는 `HttpStatus`를 매개변수로 넘겨주어야 한다.
+### fail response
+If you throw an exception, you must throw an exception that extends `ApiResponseException`. When creating an exception object, `HttpStatus` suitable for the situation must be handed over as a parameter
 
-### 검증 응답
-Bean validation 또는 커스텀한 validator 모두 적용 가능하다. **`errors.properties` 메시지 코드 -> 디폴트 메시지** 순서로 검증 메시지를 반환하다.
+### validation response
+Both Bean validation and custom validators are applicable. **`errors.properties` Message Code -> Default Message** returns a validation message
 
-### 사용 예시
+### example of use
 ```java
 @RestController
 @ApiResponse(HttpStatus.OK)
@@ -119,7 +119,7 @@ static class ExampleController {
 
     @GetMapping("/example3")
     public Object example3() {
-        throw new ApiResponseException("잘못된 요청입니다.", HttpStatus.BAD_REQUEST);
+        throw new ApiResponseException("Invalid request.", HttpStatus.BAD_REQUEST);
     }
 }
 ```
