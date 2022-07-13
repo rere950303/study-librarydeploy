@@ -40,7 +40,7 @@ tasks.named('test') {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			artifact jar
+			artifact bootJar
 		}
 	}
 }
@@ -51,5 +51,5 @@ bootJar {
 
 jar {
 	enabled = true
-//	archiveClassifier=''
+	archiveClassifier=''
 }
