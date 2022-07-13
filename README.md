@@ -5,7 +5,8 @@ A Spring Boot library that supports common responses related to success / failur
 ## Version
 - 1.0.0: first deployment
 - 1.0.1: gradle dependency error solved
-- 1.0.2(latest): delete MainClass
+- 1.0.2: delete MainClass
+- 1.0.3(latest): handle exception if handler return type is void
 
 ## Response spec
 ### success
