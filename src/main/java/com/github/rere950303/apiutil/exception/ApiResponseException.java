@@ -11,7 +11,7 @@ public class ApiResponseException extends RuntimeException {
 
     private HttpStatus status;
 
-    public ApiResponseException(String message, @NonNull HttpStatus status) {
+    public ApiResponseException(@NonNull HttpStatus status, String message) {
         super(message);
         Objects.requireNonNull(status);
         this.status = status;
@@ -23,13 +23,13 @@ public class ApiResponseException extends RuntimeException {
         this.status = status;
     }
 
-    public ApiResponseException(String message, Throwable cause, @NonNull HttpStatus status) {
+    public ApiResponseException(@NonNull HttpStatus status, String message, Throwable cause) {
         super(message, cause);
         Objects.requireNonNull(status);
         this.status = status;
     }
 
-    public ApiResponseException(Throwable cause, @NonNull HttpStatus status) {
+    public ApiResponseException(@NonNull HttpStatus status, Throwable cause) {
         super(cause);
         Objects.requireNonNull(status);
         this.status = status;

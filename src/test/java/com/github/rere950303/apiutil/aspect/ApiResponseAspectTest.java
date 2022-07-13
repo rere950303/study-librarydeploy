@@ -1,6 +1,7 @@
 package com.github.rere950303.apiutil.aspect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.rere950303.apiutil.advice.ExceptionAdvice;
 import com.github.rere950303.apiutil.advice.ValidationAdvice;
 import com.github.rere950303.apiutil.annotation.ApiResponse;
 import com.github.rere950303.apiutil.exception.ApiResponseException;
@@ -17,7 +18,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.lang.NonNull;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.Errors;
@@ -32,12 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
-import java.net.ConnectException;
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringBootTest
@@ -59,7 +54,8 @@ class ApiResponseAspectTest {
     public void setUp() {
         this.mockMvc = MockMvcBuilders
                 .standaloneSetup(testController)
-                .setControllerAdvice(new ValidationAdvice(messageSource))
+                .setControllerAdvice(new ValidationAdvice(messageSource), new ExceptionAdvice())
+//                .addInterceptors(new ApiResponseInterceptor())
                 .alwaysDo(print())
                 .build();
     }
@@ -75,7 +71,7 @@ class ApiResponseAspectTest {
     }
 
     @RestController
-    @ApiResponse(HttpStatus.OK)
+//    @ApiResponse(HttpStatus.OK)
     static class TestController {
 
         @GetMapping("/test1")
@@ -85,14 +81,10 @@ class ApiResponseAspectTest {
         }
 
         @GetMapping("/test2")
-        @ApiResponse(HttpStatus.CREATED)
+        @ApiResponse(HttpStatus.SEE_OTHER)
         public Object test2() {
-            List<DTO> result = new ArrayList<>();
-            DTO dto1 = DTO.builder().temp("123").password("123").passwordConfirm("123").build();
-            DTO dto2 = DTO.builder().temp("123").password("123").passwordConfirm("123").build();
-            result.add(dto1);
-            result.add(dto2);
-            return result;
+            return null;
+//            throw new CustomException("sdfsdf", HttpStatus.BAD_REQUEST);
         }
 
         @PostMapping("/test3")
@@ -137,7 +129,7 @@ class ApiResponseAspectTest {
 
     static class CustomException extends ApiResponseException {
         public CustomException(String message, HttpStatus status) {
-            super(message, status);
+            super(status, message);
         }
 
         public CustomException(HttpStatus status) {
@@ -145,15 +137,13 @@ class ApiResponseAspectTest {
         }
 
         public CustomException(String message, Throwable cause, HttpStatus status) {
-            super(message, cause, status);
+            super(status, message, cause);
         }
 
         public CustomException(Throwable cause, HttpStatus status) {
-            super(cause, status);
+            super(status, cause);
         }
     }
-
-
 
 
 }
