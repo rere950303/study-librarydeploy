@@ -29,7 +29,7 @@ A Spring Boot library that supports common responses related to success / failur
 }
 ```
 
-### fail
+### failure
 ```json
 {
   "result": "fail",
@@ -94,7 +94,7 @@ dependencies {
 ### success response
 The object type returned by the handler should be `Object`
 
-### fail response
+### failure response
 If you throw an exception, you must throw an exception that extends `ApiResponseException`. When creating an exception object, `HttpStatus` suitable for the situation must be handed over as a parameter
 
 ### validation response
