@@ -37,10 +37,19 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifact jar
+		}
+	}
+}
+
 bootJar {
-	enabled = true
+	enabled = false
 }
 
 jar {
-	enabled = false
+	enabled = true
+	archiveClassifier=''
 }
