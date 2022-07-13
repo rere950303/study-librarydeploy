@@ -5,6 +5,16 @@ plugins {
 	id 'maven-publish'
 }
 
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			groupId = 'com.github.rere950303'
+			artifactId = 'apituil'
+			version = '0.1'
+		}
+	}
+}
+
 group = 'com.github.rere950303'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
