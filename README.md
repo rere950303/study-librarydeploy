@@ -2,7 +2,7 @@
 ## Overview
 A Spring Boot library that supports common responses related to success / failure / validation
 
-## Version
+## Version(tag)
 - 1.0.0: first deployment
 - 1.0.1: gradle dependency error solved
 - 1.0.2: delete MainClass
@@ -17,14 +17,14 @@ A Spring Boot library that supports common responses related to success / failur
   "msg": null,
   "data": [
     {
-      "field1": data1,
-      "field2": data2,
-      "field3": data3
+      "field1": "data1",
+      "field2": "data2",
+      "field3": "data3"
     },
     {
-      "field1": data1,
-      "field2": data2,
-      "field3": data3
+      "field1": "data1",
+      "field2": "data2",
+      "field3": "data3"
     }
   ],
   "validationMsg": null
@@ -36,7 +36,7 @@ A Spring Boot library that supports common responses related to success / failur
 {
   "result": "fail",
   "code": 400,
-  "msg": msg,
+  "msg": "Invalid request",
   "data": null,
   "validationMsg": null
 }
@@ -50,9 +50,9 @@ A Spring Boot library that supports common responses related to success / failur
   "msg": null,
   "data": null,
   "validationMsg": {
-    "field1": validationMsg1,
-    "field2": validationMsg2,
-    "obejct": validationMsg3
+    "field1": "validationMsg1",
+    "field2": "validationMsg2",
+    "obejct": "validationMsg3"
   }
 }
 ```
@@ -94,7 +94,7 @@ dependencies {
 - Method takes precedence when both classes and methods are applied
 
 ### success response
-The object type returned by the handler should be `Object`
+The object type returned by the handler should be `Object` or `void`
 
 ### failure response
 If you throw an exception, you must throw an exception that extends `ApiResponseException`. When creating an exception object, `HttpStatus` suitable for the situation must be handed over as a parameter
@@ -106,7 +106,7 @@ Both Bean validation and custom validators are applicable. **`errors.properties`
 ```java
 @RestController
 @ApiResponse(HttpStatus.OK)
-static class ExampleController {
+public class ExampleController {
 
     @GetMapping("/example1")
     public Object example1() {
@@ -115,8 +115,8 @@ static class ExampleController {
 
     @PostMapping("/example2")
     @ApiResponse(HttpStatus.CREATED)
-    public Object example2() {
-        return object;
+    public void example2(@RequestBody @Valid ExampleDTO dto) {
+        
     }
 
     @GetMapping("/example3")
