@@ -9,6 +9,11 @@ A Spring Boot library that supports common responses related to success / failur
 - 1.0.3: handle exception if handler return type is void
 - 1.0.4(latest): supports a variety of API responses
 
+## Development environment
+- [Spring Boot 2.7.1](https://spring.io/projects/spring-boot)
+- [Gradle 7.4.1](https://docs.gradle.org/7.4.1/release-notes.html)
+- [Java 11](https://docs.oracle.com/en/java/javase/11/docs/api/)
+
 ## Response spec
 ### success
 ```json
