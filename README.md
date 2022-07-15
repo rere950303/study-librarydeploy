@@ -113,7 +113,7 @@ dependencies {
 - Method takes precedence when both classes and methods are applied
 
 ### success response
-The object type returned by the handler should be `Object` or `void`. If the return type is void and you do not want to return any value, set `wantReturn` of `@APIResponse` to false 
+The object type returned by the handler should be `Object` or `void`. If the return type is void and you do not want to return any value, set `wantReturn` of `@APIResponse` to `false` 
 
 ### failure response
 If you throw an exception, you must throw an exception that extends `APIResponseException`. When creating an exception object, `HttpStatus` suitable for the situation must be handed over as a parameter
