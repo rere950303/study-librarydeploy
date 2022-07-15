@@ -70,6 +70,9 @@ allprojects {
 
 dependencies {
 	implementation 'com.github.rere950303:study-librarydeploy:Tag'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 }
 ```
 
@@ -86,6 +89,21 @@ dependencies {
 	<groupId>com.github.rere950303</groupId>
 	<artifactId>study-librarydeploy</artifactId>
 	<version>Tag</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-validation</artifactId>
+    <version></version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aop</artifactId>
+    <version></version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <version></version>
 </dependency>
 ```
 
