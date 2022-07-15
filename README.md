@@ -6,8 +6,8 @@ A Spring Boot library that supports common responses related to success / failur
 - 1.0.0: first deployment
 - 1.0.1: gradle dependency error solved
 - 1.0.2: delete MainClass
-- 1.0.3(latest): handle exception if handler return type is void
-- 1.0.4(to be distributed): supports a variety of api responses
+- 1.0.3: handle exception if handler return type is void
+- 1.0.4(latest): supports a variety of API responses
 
 ## Response spec
 ### success
@@ -108,23 +108,27 @@ dependencies {
 ```
 
 ## Getting started
-- Add `@EnableApiResponse` annotation on `@SpringBootApplication`
-- Add `@ApiResponse(HttpStatus status)` annotation to class or method (default: `HttpStatus.Ok`)
+- Add `@EnableAPIResponse` annotation on `@SpringBootApplication`
+- Add `@APIResponse(HttpStatus status)` annotation to class or method (default: `HttpStatus.Ok`)
 - Method takes precedence when both classes and methods are applied
 
 ### success response
-The object type returned by the handler should be `Object` or `void`
+The object type returned by the handler should be `Object` or `void`. If the return type is void and you do not want to return any value, set `wantReturn` of `@APIResponse` to false 
 
 ### failure response
-If you throw an exception, you must throw an exception that extends `ApiResponseException`. When creating an exception object, `HttpStatus` suitable for the situation must be handed over as a parameter
+If you throw an exception, you must throw an exception that extends `APIResponseException`. When creating an exception object, `HttpStatus` suitable for the situation must be handed over as a parameter
 
 ### validation response
 Both Bean validation and custom validators are applicable. **`errors.properties` Message Code -> Default Message** returns a validation message
 
+### API response custom
+- If you want to customize the API Response, inherit the class `AbstractCommonResult` and set the `returnType` of `@APIResponse`
+- The `APIResponseFactory` interface, which creates inherited classes, must be implemented and registered as bean
+
 ### example of use
 ```java
 @RestController
-@ApiResponse(HttpStatus.OK)
+@APIResponse(HttpStatus.OK)
 public class ExampleController {
 
     @GetMapping("/example1")
@@ -133,14 +137,14 @@ public class ExampleController {
     }
 
     @PostMapping("/example2")
-    @ApiResponse(HttpStatus.CREATED)
+    @APIResponse(HttpStatus.CREATED)
     public void example2(@RequestBody @Valid ExampleDTO dto) {
         
     }
 
     @GetMapping("/example3")
     public Object example3() {
-        throw new ApiResponseException("Invalid request.", HttpStatus.BAD_REQUEST);
+        throw new APIResponseException("Invalid request.", HttpStatus.BAD_REQUEST);
     }
 }
 ```
