@@ -1,8 +1,6 @@
 package com.github.rere950303.apiutil.autoconfig;
 
-import com.github.rere950303.apiutil.advice.ExceptionAdvice;
-import com.github.rere950303.apiutil.advice.ValidationAdvice;
-import com.github.rere950303.apiutil.aspect.ApiResponseAspect;
+import com.github.rere950303.apiutil.aspect.APIResponseAspect;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.Documented;
@@ -14,6 +12,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import({ExceptionAdvice.class, ValidationAdvice.class, ApiResponseAspect.class})
-public @interface EnableApiResponse {
+@Import(APIResponseAspect.class)
+public @interface EnableAPIResponse {
 }

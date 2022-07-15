@@ -7,29 +7,29 @@ import org.springframework.lang.NonNull;
 import java.util.Objects;
 
 @Getter
-public class ApiResponseException extends RuntimeException {
+public class APIResponseException extends RuntimeException {
 
     private HttpStatus status;
 
-    public ApiResponseException(@NonNull HttpStatus status, String message) {
+    public APIResponseException(@NonNull HttpStatus status, String message) {
         super(message);
         Objects.requireNonNull(status);
         this.status = status;
     }
 
-    public ApiResponseException(@NonNull HttpStatus status) {
+    public APIResponseException(@NonNull HttpStatus status) {
         super();
         Objects.requireNonNull(status);
         this.status = status;
     }
 
-    public ApiResponseException(@NonNull HttpStatus status, String message, Throwable cause) {
+    public APIResponseException(@NonNull HttpStatus status, String message, Throwable cause) {
         super(message, cause);
         Objects.requireNonNull(status);
         this.status = status;
     }
 
-    public ApiResponseException(@NonNull HttpStatus status, Throwable cause) {
+    public APIResponseException(@NonNull HttpStatus status, Throwable cause) {
         super(cause);
         Objects.requireNonNull(status);
         this.status = status;

@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.github.rere950303.apiutil.autoconfig.APIResponseAutoConfig
